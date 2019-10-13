@@ -36,7 +36,15 @@ $cols = [
 	
 ];
 ?>
-CREATE TABLE new_mail(<?=im(", ",ak($cols));?>);
+DROP DATABASE IF EXISTS gmail_mail;
+CREATE DATABASE gmail_mail;
+
+DROP USER IF EXISTS gmail_mail;
+CREATE USER 'gmail_mail' IDENTIFIED BY 'ok';
+GRANT ALL ON gmail_mail.* TO gmail_mail;
+
+USE gmail_mail;
+CREATE TABLE new_mail(<?=im(", ",am(fn($o,$k){rt "`$o` $k";},ak($cols),$cols));?>);
 
 DELIMITER //
 CREATE Procedure Received_Email (<?=im(", ",am(fn($o){rt "IN $o";},ak($cols)))?>)
